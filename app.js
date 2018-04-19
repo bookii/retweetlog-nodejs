@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const Twitter = require('twitter');
-var client = require('./routes/tweets');
+const client = require('./routes/tweets');
+
 const PORT = process.env.PORT || 5000
 
 app.get('/', (req, res) => res.send('Hello World!'));
