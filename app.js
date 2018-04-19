@@ -13,6 +13,6 @@ app.use(bodyParser());
 app.use(logger('dev'));
 
 app.get('/', client.index);
-app.post('/', client.getUserTimeline);
+app.post('/', client.getRetweetedTweets);
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

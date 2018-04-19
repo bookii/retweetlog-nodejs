@@ -12,14 +12,13 @@ exports.index = (req, res) => {
     res.render('index');
 };
 
-exports.getUserTimeline = (req, res, next) => {
-    console.log(req.body);
+exports.getRetweetedTweets = (req, res, next) => {
     if (req.body.screen_name) {
-        console.log(req.body.screen_name);
         const params = {screen_name: req.body.screen_name};
-        client.get('statuses/user_timeline', params, (error, tweet, response) => {
+        client.get('statuses/user_timeline', params, (error, tweets, response) => {
             if(!error) {
-                res.send(tweet);
+                const retweetedTweets = tweets.filter(tweet => tweet['retweeted_status']);
+                res.send(retweetedTweets);
             }
         });
     }
