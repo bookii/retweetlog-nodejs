@@ -13,8 +13,9 @@ exports.index = (req, res) => {
 };
 
 exports.getUserTimeline = (req, res, next) => {
-    if (req.params.screen_name) {
-        console.log(screen_name);
+    console.log(req.body);
+    if (req.body.screen_name) {
+        console.log(req.body.screen_name);
         const params = {screen_name: req.body.screen_name};
         client.get('statuses/user_timeline', params, (error, tweet, response) => {
             if(!error) {

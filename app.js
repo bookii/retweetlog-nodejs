@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const Twitter = require('twitter');
+const bodyParser = require('body-parser');
 const client = require('./routes/tweets');
 const logger = require('morgan');
 const PORT = process.env.PORT || 5000
@@ -8,9 +9,10 @@ const PORT = process.env.PORT || 5000
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+app.use(bodyParser());
 app.use(logger('dev'));
 
 app.get('/', client.index);
-app.get('/home', client.getUserTimeline);
+app.post('/', client.getUserTimeline);
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
