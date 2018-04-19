@@ -8,17 +8,6 @@ const client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-const showUser = (screen_name) => {
-    const params = {screen_name: screen_name};
-    client.get('users/show', params, (error, profile, response) => {
-        if(!error) {
-            console.log(profile);
-        } else {
-            console.log(error);
-        }
-    });
-};
-
 const oembed = (retweeted_status) => {
     const lang = retweeted_status['lang'];
     const text = retweeted_status['text'];
