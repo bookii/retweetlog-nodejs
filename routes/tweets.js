@@ -8,12 +8,18 @@ const client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-const params = {screen_name: 'spoon_dev'};
+exports.index = (req, res) => {
+    res.render('index');
+};
 
 exports.getUserTimeline = (req, res, next) => {
-    client.get('statuses/user_timeline', params, (error, tweet, response) => {
-        if(!error) {
-            res.send(tweet);
-        }
-    });
+    if (req.params.screen_name) {
+        console.log(screen_name);
+        const params = {screen_name: req.body.screen_name};
+        client.get('statuses/user_timeline', params, (error, tweet, response) => {
+            if(!error) {
+                res.send(tweet);
+            }
+        });
+    }
 };
