@@ -19,6 +19,18 @@ const oembed = (retweeted_status) => {
     return html;
 };
 
+const rateLimitStatus = () => {
+    const params = {resources: 'statuses'};
+    client.get('application/rate_limit_status', params, (error, object, response) => {
+        if (!error) {
+            console.log(object['resources']['statuses']['/statuses/user_timeline']);
+            return object['resources']['statuses']['/statuses/user_timeline'];
+        } else {
+            return null;
+        }
+    });
+};
+
 exports.index = (req, res) => {
     res.render('index', { items: [] });
 };
