@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const Twitter = require('twitter');
 const bodyParser = require('body-parser');
-const client = require('./routes/tweets');
+const client = require('./routes/client');
 const logger = require('morgan');
 const PORT = process.env.PORT || 5000
 
