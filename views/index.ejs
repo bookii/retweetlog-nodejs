@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
+  <title>RTだけ表示するやつ</title>
   <meta name="author" content="mizuff">
   <meta name="keywords" content="Twitter,ツイッター,RT,リツイート,filter,フィルター,抜き出し,絞り込み,表示">
   <meta name="description" content="ユーザータイムラインからRTを抜き出して表示するWebアプリ">
   <meta name="robots" content="all">
-  <title>RTだけ表示するやつ</title>
+  <script src="https://platform.twitter.com/widgets.js"></script>
 </head>
 <body>
   <form method="post" action="/">
     <input type="text" name="screen_name" maxlength="15">
     <input type="submit" value="検索">
   </form>
-  <% items.forEach((tweet) => { %>
-    <div><%= tweet['text'] %></div>
+  <% items.forEach((item) => { %>
+    <div><%- item %></div>
   <% }); %>
 </body>
