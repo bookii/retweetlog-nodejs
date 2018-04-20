@@ -8,47 +8,100 @@ const client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-const oembed = (retweeted_status) => {
-    const lang = retweeted_status['lang'];
-    const text = retweeted_status['text'];
-    const name = retweeted_status['user']['name'];
-    const screenName = retweeted_status['user']['screen_name'];
-    const idStr = retweeted_status['id_str'];
-    const createdAt = retweeted_status['created_at'];
+const oembed = retweetedStatus => {
+    const lang = retweetedStatus['lang'];
+    const text = retweetedStatus['text'];
+    const name = retweetedStatus['user']['name'];
+    const screenName = retweetedStatus['user']['screen_name'];
+    const idStr = retweetedStatus['id_str'];
+    const createdAt = retweetedStatus['created_at'];
     const html = `<blockquote class="twitter-tweet" data-lang="ja"><p lang="${lang}" dir="ltr">${text}</p>&mdash; ${name} (@${screenName}) <a href="https://twitter.com/mizuff_k/status/${idStr}">${createdAt}</a></blockquote>`
     return html;
 };
 
 const rateLimitStatus = () => {
-    const params = {resources: 'statuses'};
-    client.get('application/rate_limit_status', params, (error, object, response) => {
-        if (!error) {
-            console.log(object['resources']['statuses']['/statuses/user_timeline']);
-            return object['resources']['statuses']['/statuses/user_timeline'];
-        } else {
-            return null;
-        }
+    return new Promise(resolve => {
+        const params = {resources: 'statuses'};
+        client.get('application/rate_limit_status', params, (error, object, response) => {
+            if (!error) {
+                resolve(object['resources']['statuses']['/statuses/user_timeline']);
+            } else {
+                resolve(null);
+            }
+        });
     });
 };
 
-exports.index = (req, res) => {
-    res.render('index', { items: [] });
-};
-
-exports.getRetweetedTweets = (req, res, next) => {
-    if (req.body.screen_name.length > 0) {
-        const params = {screen_name: req.body.screen_name};
+const getUserTimeline = (screenName, maxId) => {
+    return new Promise((resolve, reject) => {
+        let params = {screen_name: screenName, count: 200};
+        if (maxId) {
+            params['max_id'] = maxId;
+        }
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
-            if (!error) {
-                const retweetedStatuses = tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet);
-                const retweetedStatusesHTML = retweetedStatuses.map(oembed);
-                res.render('index', { items: retweetedStatusesHTML });
+            if(!error) {
+                resolve(tweets);
             } else {
-                const errorMessage = [ error['message'] || error[0]['message'] ];  // HTTP Error || others
-                res.render('index', { items: errorMessage });
+                console.log(error);
+                reject([error['message'] || error[0]['message']]);
             }
         });
-    } else {
-        res.render('index', { items: [ 'Please enter a TwitterID.' ] });
-    }
+    });
 };
+
+const getUser = (screenName) => {
+    return new Promise((resolve, reject) => {
+        client.get('users/show', {screen_name: screenName}, (error, profile, response) => {
+            if(!error) {
+                resolve(profile);
+            } else {
+                reject([error[0]['message']]);
+            }
+        })
+    });
+};
+
+const getRetweets = screenName => {
+    return new Promise(async (resolve, reject) => {
+        let retweets = [];
+        let maxId = null
+        try {
+            while(true) {
+                tweets = await getUserTimeline(screenName, maxId);
+                if (tweets.length > 1) {
+                    console.log('LENGTH: ' + tweets.length);
+                    maxId = tweets[tweets.length-1]['id'] - 1;
+                    Array.prototype.push.apply(retweets, tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet));
+                } else {
+                    break;
+                }
+            } 
+        } catch (error) {
+            reject(error);
+        }
+        resolve(retweets);
+    });
+};
+
+exports.index = async (req, res) => {
+    limit = await rateLimitStatus();
+    console.log(limit);
+    res.render('index', { items: [], rateLimitStatus: limit });
+};
+
+exports.indexWithId = async (req, res) => {
+    params = {items: null}
+    // const tweets = await getRetweetedTweets(req.body.screen_name);
+    try {
+        if (await getUser(req.body.screen_name)) {
+            items = (await getRetweets(req.body.screen_name)).map(tweet => oembed(tweet));
+            params['items'] = items;
+        }
+    } catch (error) {
+        console.log(error);
+        params['items'] = [error];
+    } finally {
+        params['rateLimitStatus'] = await rateLimitStatus();
+        res.render('index', params);
+    };
+}

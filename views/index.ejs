@@ -13,6 +13,7 @@
     <input type="text" name="screen_name" maxlength="15">
     <input type="submit" value="検索">
   </form>
+  <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %><div>
   <% items.forEach((item) => { %>
     <div><%- item %></div>
   <% }); %>
