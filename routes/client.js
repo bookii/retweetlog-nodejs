@@ -84,9 +84,7 @@ const getRetweets = screenName => {
 };
 
 exports.index = async (req, res) => {
-    limit = await rateLimitStatus();
-    console.log(limit);
-    res.render('index', { items: [], rateLimitStatus: limit });
+    res.render('index', { items: [], rateLimitStatus: await rateLimitStatus() });
 };
 
 exports.indexWithId = async (req, res) => {
