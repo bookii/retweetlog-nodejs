@@ -17,6 +17,7 @@ const createReadMore = (screenName, maxId) => {
     let f = myCreateElement('form', {method:'post', id: 'readMore'});
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
+    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
     f.appendChild(myCreateElement('input', {type: 'submit', value: 'Read More'}));
     return f;
 };
@@ -51,6 +52,8 @@ const loadRetweets = (form) => {
 };
 
 window.addEventListener('load', () => {
+    // const form = document.getElementById('readLatest');
+    // form.addEventListener("submit", (event) => {
     const form = document.getElementById('readLatest');
     form.addEventListener("submit", (event) => {
         event.preventDefault();
