@@ -108,21 +108,3 @@ exports.indexWithId = async (req, res) => {
         res.send(params);
     };
 }
-
-// exports.indexWithId = async (req, res) => {
-//     console.log(req.params);
-//     params = {items: null}
-//     // const tweets = await getRetweetedTweets(req.body.screen_name);
-//     try {
-//         if (await getUser(req.params.screen_name)) {
-//             items = (await getRetweets(req.params.screen_name)).map(tweet => oembed(tweet));
-//             params['items'] = items;
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         params['items'] = [error];
-//     } finally {
-//         params['rateLimitStatus'] = await rateLimitStatus();
-//         res.render('index', params);
-//     };
-// }

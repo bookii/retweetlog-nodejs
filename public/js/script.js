@@ -1,25 +1,3 @@
-// window.addEventListener('load', () => {
-//     const loadRetweets = (screenName) => {
-//         const request = new XMLHttpRequest();
-//         const formData = new FormData();
-//         formData.append('screenName', screenName);
-//         request.open('POST', '/');
-//         request.addEventListener('load', (event) => {
-//             alert(event.target.statusText);
-//         });
-//         request.addEventListener('error', () => {
-//             alert('error');
-//         });
-//         request.send(formData);
-//     };
-
-//     const form = document.getElementById('screenName');
-//     form.addEventListener("submit", (event) => {
-//         event.preventDefault();
-//         loadRetweets(document.forms.screenName.screen_name.value);
-//     });
-// });
-
 window.addEventListener('load', () => {
     const loadRetweets = (form) => {
         console.log(form.elements['screen_name'].value);
