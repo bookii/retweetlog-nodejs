@@ -17,6 +17,6 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 app.get('/', client.index);
-app.post('/', client.indexWithId);
+app.post('/', client.indexWithScreenName);
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

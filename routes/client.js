@@ -92,7 +92,7 @@ exports.index = async (req, res) => {
     res.render('index', { items: [], rateLimitStatus: await rateLimitStatus() });
 };
 
-exports.indexWithId = async (req, res) => {
+exports.indexWithScreenName = async (req, res) => {
     params = {items: null}
     // const tweets = await getRetweetedTweets(req.body.screen_name);
     try {
