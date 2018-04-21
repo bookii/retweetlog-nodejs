@@ -1,3 +1,10 @@
+const getScript = (src) => {
+    let s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.src = src;
+    document.getElementsByTagName('body')[0].appendChild(s);
+};
+
 const loadRetweets = (form) => {
     fetch('/', {
         method: 'POST',
@@ -17,10 +24,7 @@ const loadRetweets = (form) => {
             document.getElementById('items').appendChild(a);
         });
     }).then(() => {
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.src = 'https://platform.twitter.com/widgets.js';
-        document.getElementsByTagName('body')[0].appendChild(s);
+        getScript('https://platform.twitter.com/widgets.js');
         console.log('Finished!');
     });
 };
