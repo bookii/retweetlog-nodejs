@@ -5,7 +5,7 @@ const loadRetweets = (form) => {
             'Content-Type': 'application/json'
           },    
         body: JSON.stringify({
-            screen_name: form.elements['screen_name'].value
+            screen_name: form.elements['screenName'].value
         })
     }).then((response) => {
         return response.json();
@@ -26,7 +26,7 @@ const loadRetweets = (form) => {
 };
 
 window.addEventListener('load', () => {
-    const form = document.getElementById('screenName');
+    const form = document.getElementById('readLatest');
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         loadRetweets(form);
