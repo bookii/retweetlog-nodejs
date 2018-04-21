@@ -8,6 +8,8 @@ const client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
+const RETWEETS_PER_REQUEST = 50;
+
 const oembed = retweetedStatus => {
     const lang = retweetedStatus['lang'];
     const text = retweetedStatus['text'];
@@ -69,9 +71,12 @@ const getRetweets = screenName => {
             while(true) {
                 tweets = await getUserTimeline(screenName, maxId);
                 if (tweets.length > 1) {
-                    console.log('LENGTH: ' + tweets.length);
                     maxId = tweets[tweets.length-1]['id'] - 1;
                     Array.prototype.push.apply(retweets, tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet));
+                    console.log('retweets.length: ' + retweets.length);
+                    if (retweets.length > RETWEETS_PER_REQUEST) {
+                        break;
+                    } 
                 } else {
                     break;
                 }
@@ -96,10 +101,28 @@ exports.indexWithId = async (req, res) => {
             params['items'] = items;
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         params['items'] = [error];
     } finally {
         params['rateLimitStatus'] = await rateLimitStatus();
-        res.render('index', params);
+        res.send(params);
     };
 }
+
+// exports.indexWithId = async (req, res) => {
+//     console.log(req.params);
+//     params = {items: null}
+//     // const tweets = await getRetweetedTweets(req.body.screen_name);
+//     try {
+//         if (await getUser(req.params.screen_name)) {
+//             items = (await getRetweets(req.params.screen_name)).map(tweet => oembed(tweet));
+//             params['items'] = items;
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         params['items'] = [error];
+//     } finally {
+//         params['rateLimitStatus'] = await rateLimitStatus();
+//         res.render('index', params);
+//     };
+// }

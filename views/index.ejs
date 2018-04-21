@@ -6,15 +6,16 @@
   <meta name="keywords" content="Twitter,ツイッター,RT,リツイート,filter,フィルター,抜き出し,絞り込み,表示">
   <meta name="description" content="ユーザータイムラインからRTを抜き出して表示するWebアプリ">
   <meta name="robots" content="all">
-  <script src="https://platform.twitter.com/widgets.js"></script>
+  <script async src="https://platform.twitter.com/widgets.js"></script>
+  <script src="js/script.js"></script>
 </head>
 <body>
-  <form method="post" action="/">
+  <form method="post" id="screenName" name="screenName">
     <input type="text" name="screen_name" maxlength="15">
     <input type="submit" value="検索">
   </form>
-  <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %><div>
-  <% items.forEach((item) => { %>
-    <div><%- item %></div>
-  <% }); %>
+  <!--
+  <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
+  -->
+  <div id="items"></div> 
 </body>
