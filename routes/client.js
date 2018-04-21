@@ -37,7 +37,8 @@ const rateLimitStatus = () => {
 const getUserTimeline = (screenName, maxId) => {
     return new Promise((resolve, reject) => {
         let params = {screen_name: screenName, count: 200};
-        if (maxId) {
+        if (maxId != null) {
+
             params['max_id'] = maxId;
         }
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
@@ -63,10 +64,10 @@ const getUser = (screenName) => {
     });
 };
 
-const getRetweets = screenName => {
+const getRetweets = (screenName, maxIdPrev) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
-        let maxId = null
+        let maxId = maxIdPrev;
         try {
             while(true) {
                 tweets = await getUserTimeline(screenName, maxId);
@@ -82,9 +83,10 @@ const getRetweets = screenName => {
                 }
             } 
         } catch (error) {
-            reject(error);
+            console.log(error);
+            reject({items: error, maxId: maxId});
         }
-        resolve(retweets);
+        resolve({items: retweets, maxId: maxId});
     });
 };
 
@@ -93,18 +95,16 @@ exports.index = async (req, res) => {
 };
 
 exports.indexWithScreenName = async (req, res) => {
-    params = {items: null}
-    // const tweets = await getRetweetedTweets(req.body.screen_name);
+    let params;
     try {
-        if (await getUser(req.body.screen_name)) {
-            items = (await getRetweets(req.body.screen_name)).map(tweet => oembed(tweet));
-            params['items'] = items;
+        if (await getUser(req.body.screenName)) {
+            params = await getRetweets(req.body.screenName, req.body.maxIdPrev);
+            params['items'] = params['items'].map(tweet => oembed(tweet));
         }
     } catch (error) {
         // console.log(error);
-        params['items'] = [error];
+        params = {items: error, maxId: null};
     } finally {
-        params['rateLimitStatus'] = await rateLimitStatus();
         res.send(params);
     };
 }

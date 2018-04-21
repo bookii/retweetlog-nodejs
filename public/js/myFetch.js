@@ -24,30 +24,46 @@ const createReadMore = (screenName, maxId) => {
 
 const loadRetweets = (form) => {
     const screenName = form.elements['screenName'].value;
+    const reset = (form.elements['reset'].value == 'true');
+    const maxId = parseInt(form.elements['maxId'].value);
+    console.log('reset: ' + reset)
+    console.log('maxId: ' + maxId);
     fetch('/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
           },    
         body: JSON.stringify({
-            screen_name: screenName
+            screenName: screenName,
+            // maxIdPrev: form.elements['maxId'].value
+            maxIdPrev: maxId   // int or NaN
         })
     }).then((response) => {
         return response.json();
     }).then((json) => {
-        document.getElementById('items').innerHTML = '';
+        if (reset) {
+            document.getElementById('items').innerHTML = '';
+        }
         json['items'].forEach((item) => {
             let a = document.createElement('div');
             a.innerHTML = item
             document.getElementById('items').appendChild(a);
         });
+        const maxId = json['maxId'];
+        const readMoreNode = document.getElementById('readMore');
+        if (readMoreNode) {
+            readMoreNode.parentNode.removeChild(readMoreNode);
+        }
+        if (maxId) {
+            form = createReadMore(screenName, maxId);
+            document.getElementsByTagName('body')[0].appendChild(form);
+            document.getElementById('readMore').addEventListener("submit", (event) => {
+                event.preventDefault();
+                loadRetweets(form);
+            });
+        }
     }).then(() => {
         getScript('https://platform.twitter.com/widgets.js');
-        if (!document.getElementById('readMore')) {
-            console.log(document.getElementsByTagName('body')[0]);
-            document.getElementsByTagName('body')[0].appendChild(createReadMore(screenName, null));
-        }
-        console.log('Finished!');
     });
 };
 
