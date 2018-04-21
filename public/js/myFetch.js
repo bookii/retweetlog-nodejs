@@ -1,6 +1,5 @@
 window.addEventListener('load', () => {
     const loadRetweets = (form) => {
-        console.log(form.elements['screen_name'].value);
         fetch('/', {
             method: 'POST',
             headers: {
@@ -13,7 +12,6 @@ window.addEventListener('load', () => {
             return response.json();
         }).then((json) => {
             document.getElementById('items').innerHTML = '';
-            console.log(json['items']);
             json['items'].forEach((item) => {
                 let a = document.createElement('div');
                 a.innerHTML = item
