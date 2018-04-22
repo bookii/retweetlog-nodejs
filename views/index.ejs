@@ -10,34 +10,39 @@
     <!-- responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
+    <link rel="stylesheet" href="css/mystyles.css">
     <script src="js/myFetch.js"></script>
     <script src="js/navbar.js"></script>
   </head>
   <body>
     <% include partial/navbar %>
-    <div class="columns">
-      <div class="column is-two-thirds">
-        <form method="post" id="readLatest">
-          <div class="field has-addons">
-            <p class="control">
-              <a class="button is-static">@</a>
-            </p>
-            <p class="control">
-              <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15">
-              <input type="hidden" name="maxId" value="null">
-              <input type="hidden" name="reset" value="true">
-            </p>
-            <p class="control">
-              <button type="submit" class="button is-info">検索</button>
-            </p>
-          </div>
-        </form>
-        <!--
-        <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
-        -->
-        <div id="items"></div>
-      </div>
-      <div class="column">
+    <div class="contents">
+      <div class="columns">
+        <div class="column is-8">
+          <form method="post" id="readLatest">
+            <div class="field has-addons">
+              <p class="control">
+                <a class="button is-static">@</a>
+              </p>
+              <p class="control">
+                <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15">
+                <input type="hidden" name="maxId" value="null">
+                <input type="hidden" name="reset" value="true">
+              </p>
+              <p class="control">
+                <button type="submit" class="button is-info">のRTを表示する</button>
+              </p>
+            </div>
+          </form>
+          <!--
+          <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
+          -->
+          <div id="items"></div>
+        </div>
+        <div class="column">
+        </div>
       </div>
     </div>
   </body>

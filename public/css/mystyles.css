@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css);
+
+nav {
+    margin-bottom: 10px;
+}
+
+.contents {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.page-title {
+    font-size: 18pt;
+    font-family: "Mplus 1p";
+}
