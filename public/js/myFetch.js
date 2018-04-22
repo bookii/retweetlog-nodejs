@@ -40,6 +40,7 @@ const loadRetweets = (form) => {
     }).then((response) => {
         return response.json();
     }).then((json) => {
+        // retweets
         if (reset) {
             document.getElementById('items').innerHTML = '';
         }
@@ -48,6 +49,8 @@ const loadRetweets = (form) => {
             a.innerHTML = item
             document.getElementById('items').appendChild(a);
         });
+
+        // read more button
         const maxId = json['maxId'];
         const readMoreNode = document.getElementById('readMore');
         if (readMoreNode) {
