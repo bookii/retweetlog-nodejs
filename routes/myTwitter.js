@@ -120,7 +120,6 @@ exports.index = async (req, res) => {
         const profile = await getSettings();
         loggedInAs = profile['screen_name']
     }
-    console.log(loggedInAs);
     res.render('index', { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() });
 };
 
