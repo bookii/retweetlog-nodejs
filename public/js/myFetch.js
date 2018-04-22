@@ -18,7 +18,7 @@ const createReadMore = (screenName, maxId) => {
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
-    f.appendChild(myCreateElement('input', {type: 'submit', value: 'READ MORE'}));
+    f.appendChild(myCreateElement('button', {type: 'submit', value: 'READ MORE'}));
     return f;
 };
 
