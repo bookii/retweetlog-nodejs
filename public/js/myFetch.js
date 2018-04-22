@@ -58,7 +58,7 @@ const loadRetweets = (form) => {
         }
         if (maxId) {
             form = createReadMore(screenName, maxId);
-            document.getElementsByTagName('body')[0].appendChild(form);
+            document.getElementsByClassName('column')[0].appendChild(form);
             document.getElementById('readMore').addEventListener("submit", (event) => {
                 event.preventDefault();
                 loadRetweets(form);
