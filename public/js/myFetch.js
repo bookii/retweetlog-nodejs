@@ -6,7 +6,7 @@ const getScript = (src) => {
 };
 
 const myCreateElement = (elementType, attributes) => {
-    let element = document.createElement(elementType)
+    let element = document.createElement(elementType);
     for (key in attributes) {
         element.setAttribute(key, attributes[key]);
     }
@@ -18,7 +18,9 @@ const createReadMore = (screenName, maxId) => {
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
-    f.appendChild(myCreateElement('button', {type: 'submit', value: 'READ MORE'}));
+    let readMoreButton = myCreateElement('button', {type: 'submit'});
+    readMoreButton.appendChild(document.createTextNode('READ MORE'));
+    f.appendChild(readMoreButton);
     return f;
 };
 
