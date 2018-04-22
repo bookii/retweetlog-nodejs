@@ -37,7 +37,9 @@
             </div>
           </form>
           <!--
-          <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
+            <% if (ratelimitStatus) {} %>
+              <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
+            <% } %>
           -->
           <div id="items"></div>
         </div>
