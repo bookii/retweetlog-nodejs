@@ -57,7 +57,7 @@ const getUserTimeline = (screenName, maxId) => {
             if(!error) {
                 resolve(tweets);
             } else {
-                console.log(error);
+                // console.log(error);
                 reject([error['message'] || error[0]['message']]);
             }
         });
@@ -70,7 +70,7 @@ const getUser = (screenName) => {
             if(!error) {
                 resolve(profile);
             } else {
-                reject([error[0]['message']]);
+                reject({items: [error[0]['message']], maxId: null});
             }
         })
     });
@@ -95,7 +95,6 @@ const getRetweets = (screenName, maxIdPrev) => {
                 }
             } 
         } catch (error) {
-            console.log(error);
             reject({items: error, maxId: maxId});
         }
         resolve({items: retweets, maxId: maxId});
@@ -115,8 +114,8 @@ exports.indexWithScreenName = async (req, res) => {
             params['items'] = params['items'].map(tweet => oembed(tweet));
         }
     } catch (error) {
-        // console.log(error);
-        params = {items: error, maxId: null};
+        console.log('[indexIwthScreenName] ' + error['items']);
+        params = error;
     } finally {
         res.send(params);
     };

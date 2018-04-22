@@ -26,8 +26,6 @@ const loadRetweets = (form) => {
     const screenName = form.elements['screenName'].value;
     const reset = (form.elements['reset'].value == 'true');
     const maxId = parseInt(form.elements['maxId'].value);
-    console.log('reset: ' + reset)
-    console.log('maxId: ' + maxId);
     fetch('/', {
         method: 'POST',
         headers: {
