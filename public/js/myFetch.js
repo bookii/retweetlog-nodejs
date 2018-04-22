@@ -18,7 +18,7 @@ const createReadMore = (screenName, maxId) => {
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
-    f.appendChild(myCreateElement('input', {type: 'submit', value: 'Read More'}));
+    f.appendChild(myCreateElement('input', {type: 'submit', value: 'READ MORE'}));
     return f;
 };
 
@@ -35,7 +35,6 @@ const loadRetweets = (form) => {
           },    
         body: JSON.stringify({
             screenName: screenName,
-            // maxIdPrev: form.elements['maxId'].value
             maxIdPrev: maxId   // int or NaN
         })
     }).then((response) => {
@@ -68,8 +67,6 @@ const loadRetweets = (form) => {
 };
 
 window.addEventListener('load', () => {
-    // const form = document.getElementById('readLatest');
-    // form.addEventListener("submit", (event) => {
     const form = document.getElementById('readLatest');
     form.addEventListener("submit", (event) => {
         event.preventDefault();

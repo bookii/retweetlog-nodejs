@@ -7,7 +7,7 @@ const path = require('path');
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 const session = require('express-session');
-const client = require('./routes/client');
+const myTwitter = require('./routes/myTwitter');
 const PORT = process.env.PORT || 5000
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -52,8 +52,8 @@ passport.use(new TwitterStrategy({
     });
 }));  
 
-app.get('/', client.index);
-app.post('/', client.indexWithScreenName);
+app.get('/', myTwitter.index);
+app.post('/', myTwitter.indexWithScreenName);
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/'}), (req, res) => {
     res.redirect('/')

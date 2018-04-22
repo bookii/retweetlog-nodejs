@@ -9,7 +9,7 @@ let client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-const RETWEETS_PER_REQUEST = 50;
+const RETWEETS_PER_REQUEST = 30;
 
 const login = (req) => {
     if (req.session.passport) {  // if logged in

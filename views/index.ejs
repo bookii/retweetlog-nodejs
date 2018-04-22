@@ -6,6 +6,9 @@
   <meta name="keywords" content="Twitter,ツイッター,RT,リツイート,filter,フィルター,抜き出し,絞り込み,表示">
   <meta name="description" content="ユーザータイムラインからRTを抜き出して表示するWebアプリ">
   <meta name="robots" content="all">
+  <!-- responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/node_modules/bulma/css/bulma.min.css">
   <script src="js/myFetch.js"></script>
 </head>
 <body>
@@ -13,7 +16,7 @@
     <input type="text" name="screenName" maxlength="15">
     <input type="hidden" name="maxId" value="null">
     <input type="hidden" name="reset" value="true">
-    <input type="submit" value="検索">
+    <button type="submit" value="検索">SEARCH</button>
   </form>
   <!--
   <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
