@@ -13,7 +13,10 @@
     "dotenv": "^5.0.1",
     "ejs": "^2.5.8",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4",
     "path": "^0.12.7",
     "twitter": "^1.7.1"
   }
