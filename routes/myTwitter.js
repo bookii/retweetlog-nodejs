@@ -131,7 +131,6 @@ exports.indexWithScreenName = async (req, res) => {
             params['items'] = params['items'].map(tweet => oembed(tweet));
         }
     } catch (error) {
-        console.log('[indexIwthScreenName] ' + error['items']);
         params = error;
     } finally {
         res.send(params);
