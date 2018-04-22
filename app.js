@@ -20,39 +20,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-// // middleware for OAuth
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//         httpOnly: true,
-//         maxage: 1000 * 60 * 10    // 10min
-//     }
-// }));
-  
-// passport.serializeUser((user, done) => {
-//     done(null, user);
-// });
-// passport.deserializeUser((obj, done) => {
-//     done(null, obj);
-// });
-  
-// passport.use(new TwitterStrategy({
-//     consumerKey: process.env.CONSUMER_KEY,
-//     consumerSecret: process.env.CONSUMER_SECRET,
-//     callbackURL: process.env.CALLBACK_URL
-// },
-// (token, tokenSecret, profile, done) => {
-//     process.nextTick(() => {
-//         profile['accessToken'] = token;
-//         profile['accessTokenSecret'] = tokenSecret;
-//         return done(null, profile);
-//     });
-// }));  
-
 app.get('/', myTwitter.index);
 app.post('/', myTwitter.indexWithScreenName);
 app.get('/auth/twitter', myOAuth.signIn);
