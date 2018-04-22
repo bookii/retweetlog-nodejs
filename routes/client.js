@@ -1,7 +1,8 @@
 const Twitter = require('twitter');
 require('dotenv').config();
 
-const client = new Twitter({
+// application-only authen8tication
+let client = new Twitter({
     consumer_key: process.env.CONSUMER_KEY,
     consumer_secret: process.env.CONSUMER_SECRET,
     access_token_key: process.env.ACCESS_TOKEN_KEY,
@@ -9,6 +10,17 @@ const client = new Twitter({
 });
 
 const RETWEETS_PER_REQUEST = 50;
+
+const login = (req) => {
+    if (req.session.passport) {  // if logged in
+        client = new Twitter({
+            consumer_key: process.env.CONSUMER_KEY,
+            consumer_secret: process.env.CONSUMER_SECRET,
+            access_token_key: req.session.passport.user.accessToken,
+            access_token_secret: req.session.passport.user.accessTokenSecret
+        });
+    }
+}
 
 const oembed = retweetedStatus => {
     const lang = retweetedStatus['lang'];
@@ -91,6 +103,7 @@ const getRetweets = (screenName, maxIdPrev) => {
 };
 
 exports.index = async (req, res) => {
+    login(req);
     res.render('index', { items: [], rateLimitStatus: await rateLimitStatus() });
 };
 
