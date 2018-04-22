@@ -24,5 +24,9 @@ app.get('/', myTwitter.index);
 app.post('/', myTwitter.indexWithScreenName);
 app.get('/auth/twitter', myOAuth.signIn);
 app.get('/auth/twitter/callback', myOAuth.redirect);
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
