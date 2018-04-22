@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a class="navbar-item">RTだけ表示するやつ</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+      </div>
+      <div class="navbar-end">
+        <% if (!isLoggedIn) { %>
+          <a class="navbar-item" href="/auth/twitter">ログイン</a>
+        <% } else { %>
+          <a class="navbar-item">@<%= loggedInAs %>としてログイン中</a>
+          <a class="navbar-item" href="/auth/twitter">ログアウト</a>
+        <% } %>
+      </div>
+    </div>
+
+</nav>

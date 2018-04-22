@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-  <title>RTだけ表示するやつ</title>
-  <meta name="author" content="mizuff">
-  <meta name="keywords" content="Twitter,ツイッター,RT,リツイート,filter,フィルター,抜き出し,絞り込み,表示">
-  <meta name="description" content="ユーザータイムラインからRTを抜き出して表示するWebアプリ">
-  <meta name="robots" content="all">
-  <!-- responsive -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
-  <script src="js/myFetch.js"></script>
-</head>
-<body>
-  <form method="post" id="readLatest">
-    <input type="text" name="screenName" maxlength="15">
-    <input type="hidden" name="maxId" value="null">
-    <input type="hidden" name="reset" value="true">
-    <button type="submit" value="検索">SEARCH</button>
-  </form>
-  <!--
-  <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
-  -->
-  <div id="items"></div> 
-</body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RTだけ表示するやつ</title>
+    <meta name="author" content="mizuff">
+    <meta name="keywords" content="Twitter,ツイッター,RT,リツイート,filter,フィルター,抜き出し,絞り込み,表示">
+    <meta name="description" content="ユーザータイムラインからRTを抜き出して表示するWebアプリ">
+    <meta name="robots" content="all">
+    <!-- responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+    <script src="js/myFetch.js"></script>
+  </head>
+  <body>
+    <% include partial/navbar %>
+    <form method="post" id="readLatest">
+      <div class="field has-addons">
+        <p class="control">
+          <a class="button is-static">@</a>
+        </p>
+        <p class="control">
+          <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15">
+          <input type="hidden" name="maxId" value="null">
+          <input type="hidden" name="reset" value="true">
+        </p>
+        <p class="control">
+          <button type="submit" class="button is-info">検索</button>
+        </p>
+      </div>
+    </form>
+    <!--
+    <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
+    -->
+    <div id="items"></div> 
+  </body>
+</html>

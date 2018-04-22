@@ -19,7 +19,9 @@ const login = (req) => {
             access_token_key: req.session.passport.user.accessToken,
             access_token_secret: req.session.passport.user.accessTokenSecret
         });
+        return true;  // is logged in
     }
+    return false;
 }
 
 const oembed = retweetedStatus => {
@@ -72,9 +74,19 @@ const getUser = (screenName) => {
             } else {
                 reject({items: [error[0]['message']], maxId: null});
             }
-        })
+        });
     });
 };
+
+const getSettings = () => {
+    return new Promise((resolve) => {
+        client.get('account/settings', {}, (error, profile, response) => {
+            if(!error) {
+                resolve(profile);
+            }
+        });
+    });
+}
 
 const getRetweets = (screenName, maxIdPrev) => {
     return new Promise(async (resolve, reject) => {
@@ -102,8 +114,14 @@ const getRetweets = (screenName, maxIdPrev) => {
 };
 
 exports.index = async (req, res) => {
-    login(req);
-    res.render('index', { items: [], rateLimitStatus: await rateLimitStatus() });
+    let isLoggedIn = login(req);
+    let loggedInAs = null;
+    if (isLoggedIn) {
+        const profile = await getSettings();
+        loggedInAs = profile['screen_name']
+    }
+    console.log(loggedInAs);
+    res.render('index', { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() });
 };
 
 exports.indexWithScreenName = async (req, res) => {

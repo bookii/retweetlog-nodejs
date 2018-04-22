@@ -18,7 +18,7 @@ const createReadMore = (screenName, maxId) => {
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
-    let readMoreButton = myCreateElement('button', {type: 'submit'});
+    let readMoreButton = myCreateElement('button', {class: "button is-info", type: 'submit'});
     readMoreButton.appendChild(document.createTextNode('READ MORE'));
     f.appendChild(readMoreButton);
     return f;
