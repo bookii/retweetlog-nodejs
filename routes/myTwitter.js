@@ -1,13 +1,8 @@
 const Twitter = require('twitter');
 require('dotenv').config();
 
-// application-only authen8tication
-let client = new Twitter({
-    consumer_key: process.env.CONSUMER_KEY,
-    consumer_secret: process.env.CONSUMER_SECRET,
-    access_token_key: process.env.ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.ACCESS_TOKEN_SECRET
-});
+// application-only authentication
+let client;
 
 const RETWEETS_PER_REQUEST = 30;
 
@@ -20,6 +15,13 @@ const login = (req) => {
             access_token_secret: req.session.passport.user.accessTokenSecret
         });
         return true;  // is logged in
+    } else {
+        client = new Twitter({
+            consumer_key: process.env.CONSUMER_KEY,
+            consumer_secret: process.env.CONSUMER_SECRET,
+            access_token_key: process.env.ACCESS_TOKEN_KEY,
+            access_token_secret: process.env.ACCESS_TOKEN_SECRET
+        });
     }
     return false;
 }
@@ -54,12 +56,10 @@ const getUserTimeline = (screenName, maxId) => {
         if (maxId != null) {
             params['max_id'] = maxId;
         }
-        // console.log(client);
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
             if(!error) {
                 resolve(tweets);
             } else {
-                // console.log(error);
                 reject([error['message'] || error[0]['message']]);
             }
         });
@@ -114,6 +114,7 @@ const getRetweets = (screenName, maxIdPrev) => {
 };
 
 exports.index = async (req, res) => {
+    // req.session.destroy();
     let isLoggedIn = login(req);
     let loggedInAs = null;
     if (isLoggedIn) {
