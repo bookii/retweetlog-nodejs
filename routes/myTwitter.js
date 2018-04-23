@@ -19,7 +19,6 @@ const login = (req) => {
             access_token_key: req.session.passport.user.accessToken,
             access_token_secret: req.session.passport.user.accessTokenSecret
         });
-        console.log('LOGGED IN');
         return true;  // is logged in
     }
     return false;
@@ -53,9 +52,9 @@ const getUserTimeline = (screenName, maxId) => {
     return new Promise((resolve, reject) => {
         let params = {screen_name: screenName, count: 200};
         if (maxId != null) {
-
             params['max_id'] = maxId;
         }
+        // console.log(client);
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
             if(!error) {
                 resolve(tweets);
@@ -129,7 +128,6 @@ exports.indexWithScreenName = async (req, res) => {
     if (!req.body.screenName) {  // empty input
         res.send({items: ['Please enter a TwitterID.'], maxId: null});
     }
-    console.log(req.session);
     try {
         if (await getUser(req.body.screenName)) {
             params = await getRetweets(req.body.screenName, req.body.maxIdPrev);

@@ -7,16 +7,20 @@ require('dotenv').config();
 
 // middleware for OAuth
 app.set('trust proxy', 1);
-app.use(session({
+let sess = {
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true,
         httpOnly: true,
         maxage: 1000 * 60 * 10    // 10min
     }
-}));
+}
+if (app.get('env') === 'production') {
+    sess.cookie.secure = true;
+}
+app.use(session(sess));
+
 app.use(passport.initialize());
 app.use(passport.session());
   
