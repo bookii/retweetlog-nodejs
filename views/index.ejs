@@ -18,7 +18,7 @@
   </head>
   <body>
     <% include partial/navbar %>
-    <div class="contents">
+    <div class="container contents">
       <form method="post" id="readLatest">
         <div class="field has-addons">
           <p class="control">
@@ -34,6 +34,7 @@
           </p>
         </div>
       </form>
+      <% include partial/hero %>
       <!--
         <% if (rateLimitStatus) { %>
           <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>

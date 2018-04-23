@@ -1,13 +1,25 @@
-nav {
+form {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.contents {
-    margin-left: 10px;
-    margin-right: 10px;
+@media screen and (max-width: 1216px) {
+    .contents {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
-.page-title {
+li {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.page-title, h1 {
     font-size: 18pt;
     font-family: "Mplus 1p";
+}
+
+.hero {
+    padding: 10px
 }
