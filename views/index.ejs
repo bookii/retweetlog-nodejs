@@ -19,33 +19,27 @@
   <body>
     <% include partial/navbar %>
     <div class="contents">
-      <div class="columns">
-        <div class="column is-8">
-          <form method="post" id="readLatest">
-            <div class="field has-addons">
-              <p class="control">
-                <a class="button is-static">@</a>
-              </p>
-              <p class="control">
-                <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15">
-                <input type="hidden" name="maxId" value="null">
-                <input type="hidden" name="reset" value="true">
-              </p>
-              <p class="control">
-                <button type="submit" class="button is-info">検索</button>
-              </p>
-            </div>
-          </form>
-          <!--
-            <% if (rateLimitStatus) { %>
-              <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
-            <% } %>
-          -->
-          <div id="items"></div>
+      <form method="post" id="readLatest">
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">@</a>
+          </p>
+          <p class="control">
+            <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15">
+            <input type="hidden" name="maxId" value="null">
+            <input type="hidden" name="reset" value="true">
+          </p>
+          <p class="control">
+            <button type="submit" class="button is-info">検索</button>
+          </p>
         </div>
-        <div class="column">
-        </div>
-      </div>
+      </form>
+      <!--
+        <% if (rateLimitStatus) { %>
+          <div><%= rateLimitStatus['remaining'] %>/<%= rateLimitStatus['limit'] %></div>
+        <% } %>
+      -->
+      <div id="items"></div>
     </div>
   </body>
 </html>

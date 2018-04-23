@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="navbar-brand">
-    <a class="navbar-item page-title"><i class="fas fa-retweet"></i>RTだけ表示するやつ</a>
+    <a href="/" class="navbar-item page-title"><i class="fas fa-retweet"></i>RTだけ表示するやつ</a>
     <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -10,10 +10,10 @@
   <div class="navbar-menu" id="navMenu">
     <div class="navbar-end">
       <% if (!isLoggedIn) { %>
-        <a class="navbar-item" href="/auth/twitter">ログイン</a>
+        <a href="/auth/twitter" class="navbar-item">ログイン</a>
       <% } else { %>
         <a class="navbar-item">@<%= loggedInAs %>でログイン中</a>
-        <a class="navbar-item" href="/logout">ログアウト</a>
+        <a href="/logout" class="navbar-item">ログアウト</a>
       <% } %>
     </div>
   </div>
