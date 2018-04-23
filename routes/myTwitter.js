@@ -19,6 +19,7 @@ const login = (req) => {
             access_token_key: req.session.passport.user.accessToken,
             access_token_secret: req.session.passport.user.accessTokenSecret
         });
+        console.log('LOGGED IN');
         return true;  // is logged in
     }
     return false;

@@ -2,16 +2,18 @@
 const app = require('../app');
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
-const cookieSession = require('cookie-session');
+const session = require('express-session');
 require('dotenv').config();
 
 // middleware for OAuth
-app.use(cookieSession({
+app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    // saveUninitialized: false,
-    httpOnly: true,
-    maxAge: 1000 * 60 * 10    // 10min
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        maxage: 1000 * 60 * 10    // 10min
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
