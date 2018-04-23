@@ -6,7 +6,6 @@ const logger = require('morgan');
 const path = require('path');
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
-const session = require('express-session');
 const myOAuth = require('./routes/myOAuth');
 const myTwitter = require('./routes/myTwitter');
 const PORT = process.env.PORT || 5000

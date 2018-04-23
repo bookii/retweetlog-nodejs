@@ -129,6 +129,7 @@ exports.indexWithScreenName = async (req, res) => {
     if (!req.body.screenName) {  // empty input
         res.send({items: ['Please enter a TwitterID.'], maxId: null});
     }
+    console.log(req.session);
     try {
         if (await getUser(req.body.screenName)) {
             params = await getRetweets(req.body.screenName, req.body.maxIdPrev);

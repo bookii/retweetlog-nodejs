@@ -6,11 +6,13 @@ const session = require('express-session');
 require('dotenv').config();
 
 // middleware for OAuth
+app.set('trust proxy', 1);
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
+        secure: true,
         httpOnly: true,
         maxage: 1000 * 60 * 10    // 10min
     }
