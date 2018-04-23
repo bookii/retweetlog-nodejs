@@ -1,20 +1,23 @@
 body {
     font-family: "Mplus 1p"; 
 }
+
 @media screen and (max-width: 1216px) {
     .contents {
         padding-left: 10px;
         padding-right: 10px;
     }
 }
+
 form {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 li {
-    margin-top: 2px;
     margin-bottom: 2px;
 }
+
 .page-title{
     font-size: 18pt;
 }
