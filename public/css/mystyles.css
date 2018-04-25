@@ -18,6 +18,17 @@ form {
     margin: 10px 0;
 }
 
+.columns {
+    margin: 0px -5px;
+}
+.column {
+    margin: 0 -5px -10px;
+}
+
+p {
+    margin: 5px 0;
+}
+
 li {
     margin-bottom: 2px;
 }
