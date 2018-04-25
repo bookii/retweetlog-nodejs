@@ -17,6 +17,7 @@ const createReadMore = (screenName, maxId) => {
     let f = myCreateElement('form', {method:'post', id: 'readMore'});
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
+    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'untilDate', value: null}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
     const readMoreButton = myCreateElement('button', {class: "button is-info", type: 'submit'});
     readMoreButton.appendChild(document.createTextNode('続きを読む'));
@@ -34,8 +35,9 @@ const removeHero = () => {  // remove hero if exists
 const loadRetweets = (form) => {
     form.getElementsByTagName('button')[0].classList.add('is-loading');  // add loading animation
     const screenName = form.elements['screenName'].value;
-    const reset = (form.elements['reset'].value == 'true');
     const maxId = parseInt(form.elements['maxId'].value);
+    const untilDate = form.elements['untilDate'].value;
+    const reset = (form.elements['reset'].value == 'true');
     fetch('/', {
         method: 'POST',
         headers: {
@@ -43,7 +45,8 @@ const loadRetweets = (form) => {
           },    
         body: JSON.stringify({
             screenName: screenName,
-            maxIdPrev: maxId   // int or NaN
+            maxId: maxId,   // int or NaN
+            untilDate: untilDate
         })
     }).then((response) => {
         removeHero();

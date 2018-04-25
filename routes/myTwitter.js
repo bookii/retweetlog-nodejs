@@ -58,7 +58,7 @@ const getUserTimeline = (screenName, maxId) => {
         }
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
             if(!error) {
-                resolve(tweets);
+                resolve(tweets)
             } else {
                 reject([error['message'] || error[0]['message']]);
             }
@@ -66,7 +66,7 @@ const getUserTimeline = (screenName, maxId) => {
     });
 };
 
-const getUser = (screenName) => {
+const getUser = (screenName) => {   // Show if user_timeline is available
     return new Promise((resolve, reject) => {
         client.get('users/show', {screen_name: screenName}, (error, profile, response) => {
             if(!error) {
@@ -78,7 +78,7 @@ const getUser = (screenName) => {
     });
 };
 
-const getSettings = () => {
+const getSettings = () => {  // Show profile of the user logging in
     return new Promise((resolve) => {
         client.get('account/settings', {}, (error, profile, response) => {
             if(!error) {
@@ -88,7 +88,7 @@ const getSettings = () => {
     });
 }
 
-const getRetweets = (screenName, maxIdPrev) => {
+const getRetweets = (screenName, maxIdPrev, untilDate) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
         let maxId = maxIdPrev;
@@ -97,6 +97,9 @@ const getRetweets = (screenName, maxIdPrev) => {
                 tweets = await getUserTimeline(screenName, maxId);
                 if (tweets.length > 1) {
                     maxId = tweets[tweets.length-1]['id'] - 1;
+                    if (Date.parse(untilDate)) {
+                        tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate));
+                    }
                     Array.prototype.push.apply(retweets, tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet));
                     console.log('retweets.length: ' + retweets.length);
                     if (retweets.length > RETWEETS_PER_REQUEST) {
@@ -131,7 +134,7 @@ exports.indexWithScreenName = async (req, res) => {
     }
     try {
         if (await getUser(req.body.screenName)) {
-            params = await getRetweets(req.body.screenName, req.body.maxIdPrev);
+            params = await getRetweets(req.body.screenName, req.body.maxId, req.body.untilDate);
             params['items'] = params['items'].map(tweet => oembed(tweet));
         }
     } catch (error) {
