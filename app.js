@@ -21,6 +21,7 @@ app.use(logger('dev'));
 
 app.get('/', myTwitter.index);
 app.post('/', myTwitter.indexWithScreenName);
+app.get('/about', myTwitter.about);
 app.get('/auth/twitter', myOAuth.signIn);
 app.get('/auth/twitter/callback', myOAuth.redirect);
 app.get('/logout', (req, res) => {

@@ -116,15 +116,22 @@ const getRetweets = (screenName, maxIdPrev, untilDate) => {
     });
 };
 
-exports.index = async (req, res) => {
-    // req.session.destroy();
+const renderWithLoginInfo = async (req, res, ejs) => {
     let isLoggedIn = login(req);
     let loggedInAs = null;
     if (isLoggedIn) {
         const profile = await getSettings();
         loggedInAs = profile['screen_name']
     }
-    res.render('index', { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() });
+    res.render(ejs, { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() })
+}
+
+exports.index = (req, res) => {
+    renderWithLoginInfo(req, res, 'index');
+};
+
+exports.about = (req, res) => {
+    renderWithLoginInfo(req, res, 'about');
 };
 
 exports.indexWithScreenName = async (req, res) => {
