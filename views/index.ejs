@@ -1,30 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118033161-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-118033161-1');
-    </script>
-    <meta charset="utf-8">
-    <title>RTだけ表示するやつ</title>
-    <meta name="author" content="mizuff">
-    <meta name="keywords" content="Twitter,ツイッター,RT,リツイート,filter,フィルター,抜き出し,絞り込み,表示">
-    <meta name="description" content="指定したTwitterユーザーのRTだけを表示するWebアプリ">
-    <meta name="robots" content="all">
-    <!-- responsive -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-    <link  rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/mplus1p.css">
-    <link rel="stylesheet" href="css/mystyles.css">
-    <script src="js/myFetch.js"></script>
-    <script src="js/navbar.js"></script>
-  </head>
+  <% include partial/head %>
   <body>
     <% include partial/navbar %>
     <div class="container contents">
