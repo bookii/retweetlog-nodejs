@@ -62,6 +62,7 @@ footer p {
     border-radius: 4px;
     color: rgba(255, 255, 255, 0.5);
     text-align: center;
+    display: none;  /* initial state */
 }
 
 #jumpToTop:hover {
