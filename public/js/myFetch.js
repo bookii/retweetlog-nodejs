@@ -23,12 +23,13 @@ const myCreateElement = (elementType, attributes) => {
     return element;
 }
 
-const createReadMore = (screenName, maxId) => {
+const createReadMore = (screenName, maxId, csrfToken) => {
     let f = myCreateElement('form', {method:'post', id: 'readMore'});
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'untilDate', value: null}));
     f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
+    f.appendChild(myCreateElement('input', {type: 'hidden', name: '_csrf', value: csrfToken}));
     const readMoreButton = myCreateElement('button', {class: "button is-info", type: 'submit'});
     readMoreButton.appendChild(document.createTextNode('続きを読む'));
     f.appendChild(readMoreButton);
@@ -84,7 +85,7 @@ const loadRetweets = (form) => {
             readMoreNode.parentNode.removeChild(readMoreNode);
         }
         if (maxId) {  // add button
-            form = createReadMore(screenName, maxId);
+            form = createReadMore(screenName, maxId, csrfToken);
             document.getElementsByClassName('contents')[0].appendChild(form);
             document.getElementById('readMore').addEventListener("submit", (event) => {
                 event.preventDefault();
