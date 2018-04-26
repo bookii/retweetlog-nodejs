@@ -5,7 +5,7 @@ html {
 
 body {
     font-family: "Mplus 1p";
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 @media screen and (max-width: 1216px) {
@@ -50,4 +50,20 @@ footer {
 
 footer p {
     font-size: 14px;
+}
+
+#jumpToTop {
+    position: fixed;
+    z-index: 0;
+    right: 10px;
+    bottom: 31px;
+    background-color: rgba(170, 170, 170, 0.5);
+    padding: 6px 13px;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+#jumpToTop:hover {
+    background-color: rgba(204, 204, 204, 0.5);
 }
