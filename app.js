@@ -4,6 +4,8 @@ const Twitter = require('twitter');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const csrf = require('csurf');
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 const myOAuth = require('./routes/myOAuth');
@@ -18,6 +20,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
+
+// csrf
+app.use(cookieParser());
+app.use(csrf({cookie: true}));
+app.use(function(req, res, next) {
+    res.locals.csrftoken = req.csrfToken();
+    next();
+});
 
 app.get('/', myTwitter.index);
 app.post('/', myTwitter.indexWithScreenName);

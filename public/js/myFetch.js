@@ -1,3 +1,13 @@
+const checkStatus = (response) => {
+    if (response.status >= 200 && response.status < 300) {
+      return response;
+    } else {
+      var error = new Error(response.statusText);
+      error.response = response;
+      throw error;
+    }
+}
+
 const getScript = (src) => {
     let s = document.createElement('script');
     s.type = 'text/javascript';
@@ -37,11 +47,14 @@ const loadRetweets = (form) => {
     const screenName = form.elements['screenName'].value;
     const maxId = parseInt(form.elements['maxId'].value);
     const untilDate = form.elements['untilDate'].value;
+    const csrfToken = form.elements['_csrf'].value;
     const reset = (form.elements['reset'].value == 'true');
     fetch('/', {
         method: 'POST',
+        credentials: 'same-origin',  // <-- includes cookies in the request (ref: https://github.com/expressjs/csurf)
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken
           },    
         body: JSON.stringify({
             screenName: screenName,
@@ -49,6 +62,7 @@ const loadRetweets = (form) => {
             untilDate: untilDate
         })
     }).then((response) => {
+        checkStatus(response);
         removeHero();
         form.getElementsByTagName('button')[0].classList.remove('is-loading');  // remove loading animation
         return response.json();

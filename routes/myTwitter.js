@@ -123,7 +123,7 @@ const renderWithLoginInfo = async (req, res, ejs) => {
         const profile = await getSettings();
         loggedInAs = profile['screen_name']
     }
-    res.render(ejs, { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() })
+    res.render(ejs, { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() });
 }
 
 exports.index = (req, res) => {
