@@ -47,3 +47,7 @@ footer {
 .hero {
     padding: 10px
 }
+
+footer p {
+    font-size: 14px;
+}
