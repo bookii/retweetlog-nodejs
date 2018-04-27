@@ -101,7 +101,7 @@ const getRetweets = (screenName, maxIdPrev, untilDate) => {
                         tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate));
                     }
                     Array.prototype.push.apply(retweets, tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet));
-                    console.log('retweets.length: ' + retweets.length);
+                    // console.log('retweets.length: ' + retweets.length);
                     if (retweets.length > RETWEETS_PER_REQUEST) {
                         break;
                     } 
