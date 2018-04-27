@@ -10,7 +10,6 @@ const checkStatus = (response) => {
 
 const getScript = (src) => {
     let s = document.createElement('script');
-    s.setAttribute('async', '');
     s.type = 'text/javascript';
     s.src = src;
     document.getElementsByTagName('body')[0].appendChild(s);
