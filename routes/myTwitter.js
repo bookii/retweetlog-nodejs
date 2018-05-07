@@ -33,7 +33,7 @@ const oembed = retweetedStatus => {
     const screenName = retweetedStatus['user']['screen_name'];
     const idStr = retweetedStatus['id_str'];
     const createdAt = retweetedStatus['created_at'];
-    const html = `<blockquote class="twitter-tweet" data-lang="ja"><p lang="${lang}" dir="ltr">${text}</p>&mdash; ${name} (@${screenName}) <a href="https://twitter.com/mizuff_k/status/${idStr}">${createdAt}</a></blockquote>`
+    const html = `<blockquote class="twitter-tweet" data-lang="ja"><p lang="${lang}" dir="ltr">${text}</p>&mdash; ${name} (@${screenName}) <a href="https://twitter.com/${screenName}/status/${idStr}">${createdAt}</a></blockquote>`
     return html;
 };
 
