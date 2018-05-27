@@ -5,20 +5,38 @@
     <% include partial/navbar %>
     <div class="container contents">
       <form method="post" id="readLatest">
-        <div class="field has-addons">
+        <div id="simple" class="field is-grouped">
+          <div class="field has-addons">
+            <p class="control">
+              <a class="button is-static">@</a>
+            </p>
+            <p class="control">
+              <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15" required>
+              <input type="hidden" name="maxId" value="null">
+              <!--<input type="hidden" name="untilDate" value="null">-->
+              <input type="hidden" name="reset" value="true">
+              <input type="hidden" name="_csrf" value="<%= csrftoken %>">
+            </p>
+            <p class="control">
+              <button type="submit" class="button is-info">検索</button>
+            </p>
+          </div>
+          &nbsp;&nbsp;
+          <div>
+            <p class="control">
+              <span id="showDetail" type="submit" class="button" onclick="toggle(); fillToday();">詳細&nbsp;<i class="fas fa-angle-down"></i></span>
+            </p>
+          </div>
+        </div>
+        <div id="detail" style="display: none;">
+          <div class="option">
           <p class="control">
-            <a class="button is-static">@</a>
+            日付の上限
           </p>
           <p class="control">
-            <input type="text" class="input" name="screenName" placeholder="TwitterID" maxlength="15" required>
-            <input type="hidden" name="maxId" value="null">
-            <input type="hidden" name="untilDate" value="null">
-            <input type="hidden" name="reset" value="true">
-            <input type="hidden" name="_csrf" value="<%= csrftoken %>">
-          </p>
-          <p class="control">
-            <button type="submit" class="button is-info">検索</button>
-          </p>
+            <input id="untilDate" class="input" type="date" name="untilDate">
+          </p>    
+          </div>  
         </div>
       </form>
       <% include partial/hero %>

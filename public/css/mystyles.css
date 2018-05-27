@@ -18,6 +18,19 @@ form {
     margin: 10px 0;
 }
 
+.option {
+    margin: 10px 0 15px 0;
+}
+
+input[type="checkbox"] {
+    margin-right: 3px;
+}
+
+#untilDate {
+    width: 225px;
+    margin-bottom: 5px;
+}
+
 .columns {
     margin: 0px -5px;
 }
@@ -25,8 +38,16 @@ form {
     margin: 0 -5px -10px;
 }
 
-p {
+.column p {
     margin: 5px 0;
+}
+
+#simple .control {
+    margin: 5px 0;
+}
+
+#detail .control {
+    margin: 2px 0;
 }
 
 li {
@@ -40,8 +61,14 @@ footer {
     height: 30px;
 }
 
-.page-title{
+.page-title {
     font-size: 18pt;
+}
+
+.field.is-grouped {
+    margin: 0;
+    padding: 0;
+    height: 46px;
 }
 
 .hero {
