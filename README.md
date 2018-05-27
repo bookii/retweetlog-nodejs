@@ -17,4 +17,4 @@ TwitterIDで検索すると、そのユーザーがRTしたツイートだけを
 
 ## Contact
 
-+ [@mizuff_k](https://twitter.com/mizuff_k) または [ブログ](http://mizuff.hatenablog.com/entry/retweetlog-renewal) までお願いします
++ [@mizuff_k](https://twitter.com/mizuff_k) までお願いします
