@@ -23,21 +23,19 @@ const dateOption = (checkbox) => {
 }
 
 const fillToday = () => {
-    if (!document.getElementById('untilDate').value) {
-        const date = new Date();
+    const date = new Date();
 
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
 
-        const yyyy = ('0000' + year).slice(-4);
-        const mm = ('00' + month).slice(-2);
-        const dd = ('00' + day).slice(-2);
+    const yyyy = ('0000' + year).slice(-4);
+    const mm = ('00' + month).slice(-2);
+    const dd = ('00' + day).slice(-2);
 
-        const ymd = yyyy + '-' + mm + '-' + dd;
+    const ymd = yyyy + '-' + mm + '-' + dd;
 
-        document.getElementById('untilDate').value = ymd;
-    }
+    document.getElementById('untilDate').value = ymd;
 }
 
 const adjustWidth = () => {

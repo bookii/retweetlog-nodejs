@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <% include partial/head %>
-  <body onload="adjustWidth();">
+  <body onload="fillToday(); adjustWidth();">
     <% include partial/navbar %>
     <div class="container contents">
       <form method="post" id="readLatest">
@@ -24,7 +24,7 @@
           &nbsp;&nbsp;
           <div>
             <p class="control">
-              <span id="showDetail" type="submit" class="button" onclick="toggle(); fillToday();">詳細&nbsp;<i class="fas fa-angle-down"></i></span>
+              <span id="showDetail" type="submit" class="button" onclick="toggle();">詳細&nbsp;<i class="fas fa-angle-down"></i></span>
             </p>
           </div>
         </div>
