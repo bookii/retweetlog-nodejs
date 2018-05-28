@@ -30,13 +30,26 @@
         </div>
         <div id="detail" style="display: none;">
           <div class="option">
-          <p class="control">
-            リツイートした日付の上限:
-          </p>
-          <p class="control">
-            <input id="untilDate" class="input" type="date" name="untilDate">
-          </p>    
-          </div>  
+            <p class="control">
+              リツイートした日付の上限:
+            </p>
+            <p class="control">
+              <input id="untilDate" class="input" type="date" name="untilDate">
+            </p>    
+          </div>
+          <div class="option">
+            <p class="control">
+              ユーザー本人のツイート:
+            </p>
+            <p class="control">
+              <label class="radio">
+                <input type="radio" name="includeSelf" value="true" checked>含む
+              </label>
+              <label class="radio">
+                <input type="radio" name="includeSelf" value="false">除外する
+              </label>
+            </p> 
+          </div>
         </div>
       </form>
       <% include partial/hero %>

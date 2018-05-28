@@ -18,11 +18,15 @@ form {
     margin: 10px 0;
 }
 
-.option {
-    margin: 10px 0 15px 0;
+#detail {
+    margin: 10px 0 20px 0;
 }
 
-input[type="checkbox"] {
+.option {
+    margin: 5px 0 15px 0;
+}
+
+input[type="radio"] {
     margin-right: 3px;
 }
 
