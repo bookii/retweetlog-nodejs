@@ -88,7 +88,7 @@ const getSettings = () => {  // Show profile of the user logging in
     });
 }
 
-const getRetweets = (screenName, maxIdPrev, untilDate) => {
+const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
         let maxId = maxIdPrev;
@@ -96,15 +96,20 @@ const getRetweets = (screenName, maxIdPrev, untilDate) => {
             while(true) {
                 tweets = await getUserTimeline(screenName, maxId);
                 if (tweets.length > 1) {
+                    let retweetsChunk = [];
                     maxId = tweets[tweets.length-1]['id'] - 1;
                     if (Date.parse(untilDate)) {
-                        tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate));
+                        tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate) + 86400);
                     }
-                    Array.prototype.push.apply(retweets, tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet));
+                    retweetsChunk = tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet);
+                    if (includeSelf == false) {
+                        retweetsChunk = retweetsChunk.filter(retweet => retweet['user']['screen_name'] != screenName);
+                    }
                     // console.log('retweets.length: ' + retweets.length);
+                    Array.prototype.push.apply(retweets, retweetsChunk);
                     if (retweets.length > RETWEETS_PER_REQUEST) {
                         break;
-                    } 
+                    }
                 } else {
                     break;
                 }
@@ -141,7 +146,7 @@ exports.indexWithScreenName = async (req, res) => {
     }
     try {
         if (await getUser(req.body.screenName)) {
-            params = await getRetweets(req.body.screenName, req.body.maxId, req.body.untilDate);
+            params = await getRetweets(req.body.screenName, req.body.maxId, req.body.untilDate, req.body.includeSelf);
             params['items'] = params['items'].map(tweet => oembed(tweet));
         }
     } catch (error) {
