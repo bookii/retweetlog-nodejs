@@ -39,3 +39,9 @@ const fillToday = () => {
         document.getElementById('untilDate').value = ymd;
     }
 }
+
+const adjustWidth = () => {
+    const searchFieldElement = document.getElementById('simple').getElementsByClassName('control');
+    const inputWidth = searchFieldElement[0].offsetWidth + searchFieldElement[1].offsetWidth;
+    document.getElementById('untilDate').style.width = inputWidth + 'px';
+}
