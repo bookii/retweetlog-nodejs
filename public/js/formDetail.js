@@ -13,15 +13,6 @@ const toggle = () => {
     }
 }
 
-const dateOption = (checkbox) => {
-    const untilDate = document.getElementById('untilDate');
-    if (checkbox.checked === true) {
-        untilDate.disabled = false;
-    } else {
-        untilDate.disabled = true;
-    }
-}
-
 const fillToday = () => {
     const date = new Date();
 
