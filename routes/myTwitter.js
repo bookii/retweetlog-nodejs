@@ -55,8 +55,9 @@ const rateLimitStatus = () => {
 const getUserTimeline = (screenName, maxId) => {
     return new Promise((resolve, reject) => {
         let params = {screen_name: screenName, count: 200};
-        if (maxId != null) {
-            params['max_id'] = maxId;
+        if (maxId) {
+            params['max_id'] = maxId.toString();
+            console.log(params['max_id']);
         }
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
             if(!error) {
@@ -93,16 +94,17 @@ const getSettings = () => {  // Show profile of the user logging in
 const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
-        let maxId = maxIdPrev;
-        if (!maxId) { 
-            maxId = BigInt(maxId);
+        let maxId;
+        if (maxIdPrev) { 
+            maxId = bigInt(maxIdPrev);
         }
+
         try {
             while(true) {
                 tweets = await getUserTimeline(screenName, maxId);
                 if (tweets.length > 1) {
                     let retweetsChunk = [];
-                    maxId = BigInt(tweets[tweets.length-1]['id_str']) - 1;
+                    maxId = bigInt(tweets[tweets.length-1]['id_str']).add(-1);
                     if (Date.parse(untilDate)) {
                         tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate) + 86400);
                     }
@@ -120,9 +122,9 @@ const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
                 }
             } 
         } catch (error) {
-            reject({items: error, maxId: maxId});
+            reject({items: error, maxId: maxId.toString()});
         }
-        resolve({items: retweets, maxId: maxId});
+        resolve({items: retweets, maxId: maxId.toString()});
     });
 };
 
