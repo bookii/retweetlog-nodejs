@@ -6,6 +6,7 @@ require('dotenv').config();
 let client;
 
 const RETWEETS_PER_REQUEST = 30;
+const TWEPOCH = 1288834974657;
 
 const login = (req) => {
     if (req.session.passport) {  // if logged in
@@ -38,6 +39,11 @@ const oembed = (retweetedStatus) => {
     return html;
 };
 
+// Culculate id using snowflake
+const dateToStatusId = (unixTime) => {
+    return bigInt(unixTime - TWEPOCH).shiftLeft(22).toString();
+}
+
 const rateLimitStatus = () => {
     return new Promise(resolve => {
         const params = {resources: 'statuses'};
@@ -57,7 +63,6 @@ const getUserTimeline = (screenName, maxId) => {
         let params = {screen_name: screenName, count: 200};
         if (maxId) {
             params['max_id'] = maxId.toString();
-            console.log(params['max_id']);
         }
         client.get('statuses/user_timeline', params, (error, tweets, response) => {
             if(!error) {
@@ -95,8 +100,11 @@ const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
         let maxId;
+
         if (maxIdPrev) { 
             maxId = bigInt(maxIdPrev);
+        } else if (untilDate) {
+            maxId = dateToStatusId(Date.parse(untilDate) + 86400);
         }
 
         try {
@@ -105,9 +113,6 @@ const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
                 if (tweets.length > 1) {
                     let retweetsChunk = [];
                     maxId = bigInt(tweets[tweets.length-1]['id_str']).add(-1);
-                    if (Date.parse(untilDate)) {
-                        tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate) + 86400);
-                    }
                     retweetsChunk = tweets.map(tweet => tweet['retweeted_status']).filter(tweet => tweet);
                     if (includeSelf == false) {
                         retweetsChunk = retweetsChunk.filter(retweet => retweet['user']['screen_name'] != screenName);
