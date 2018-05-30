@@ -40,8 +40,8 @@ const oembed = (retweetedStatus) => {
 };
 
 // Culculate id using snowflake
-const dateToStatusId = (unixTime) => {
-    return bigInt(unixTime - TWEPOCH).shiftLeft(22).toString();
+const dateToStatusId = (unixTimeMs) => {
+    return bigInt(unixTimeMs - TWEPOCH).shiftLeft(22).toString();
 }
 
 const rateLimitStatus = () => {
