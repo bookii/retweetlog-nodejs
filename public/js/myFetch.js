@@ -47,7 +47,7 @@ const removeHero = () => {  // remove hero if exists
 const loadRetweets = (form) => {
     form.getElementsByTagName('button')[0].classList.add('is-loading');     // add loading animation
     const screenName = form.elements['screenName'].value;
-    const maxId = parseInt(form.elements['maxId'].value);
+    const maxId = form.elements['maxId'].value;
     const untilDate = form.elements['untilDate'].value;
     const includeSelf = (form.elements['includeSelf'].value == 'true');      // string to boolean
     const csrfToken = form.elements['_csrf'].value;
