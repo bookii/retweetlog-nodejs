@@ -104,7 +104,7 @@ const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
         if (maxIdPrev) { 
             maxId = bigInt(maxIdPrev);
         } else if (untilDate) {
-            maxId = dateToStatusId(Date.parse(untilDate) + 86400);
+            maxId = dateToStatusId(Date.parse(untilDate) + 15*60*60*1000);
         } else {
             maxId = dateToStatusId(Date.now());
         }
