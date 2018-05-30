@@ -26,7 +26,7 @@ const login = (req) => {
     return false;
 }
 
-const oembed = retweetedStatus => {
+const oembed = (retweetedStatus) => {
     const lang = retweetedStatus['lang'];
     const text = retweetedStatus['text'];
     const name = retweetedStatus['user']['name'];
