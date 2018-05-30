@@ -42,6 +42,7 @@ const rateLimitStatus = () => {
         const params = {resources: 'statuses'};
         client.get('application/rate_limit_status', params, (error, object, response) => {
             if (!error) {
+                console.log(object['rate_limit_context']);
                 resolve(object['resources']['statuses']['/statuses/user_timeline']);
             } else {
                 resolve(null);
@@ -91,7 +92,10 @@ const getSettings = () => {  // Show profile of the user logging in
 const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
-        let maxId = BigInt(maxIdPrev);
+        let maxId = maxIdPrev;
+        if (!maxId) { 
+            maxId = BigInt(maxId);
+        }
         try {
             while(true) {
                 tweets = await getUserTimeline(screenName, maxId);
@@ -128,7 +132,7 @@ const renderWithLoginInfo = async (req, res, ejs) => {
         const profile = await getSettings();
         loggedInAs = profile['screen_name']
     }
-    res.render(ejs, { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: await rateLimitStatus() });
+    res.render(ejs, { isLoggedIn: isLoggedIn, loggedInAs: loggedInAs, rateLimitStatus: null });
 }
 
 exports.index = (req, res) => {
