@@ -91,13 +91,13 @@ const getSettings = () => {  // Show profile of the user logging in
 const getRetweets = (screenName, maxIdPrev, untilDate, includeSelf) => {
     return new Promise(async (resolve, reject) => {
         let retweets = [];
-        let maxId = maxIdPrev;
+        let maxId = BigInt(maxIdPrev);
         try {
             while(true) {
                 tweets = await getUserTimeline(screenName, maxId);
                 if (tweets.length > 1) {
                     let retweetsChunk = [];
-                    maxId = tweets[tweets.length-1]['id'] - 1;
+                    maxId = BigInt(tweets[tweets.length-1]['id_str']) - 1;
                     if (Date.parse(untilDate)) {
                         tweets = tweets.filter(tweet => Date.parse(tweet['created_at']) < Date.parse(untilDate) + 86400);
                     }
