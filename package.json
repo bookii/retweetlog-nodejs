@@ -9,6 +9,7 @@
   "author": "mizuff",
   "license": "MIT",
   "dependencies": {
+    "big-integer": "^1.6.30",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",

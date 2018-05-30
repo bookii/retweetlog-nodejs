@@ -1,4 +1,5 @@
 const Twitter = require('twitter');
+const bigInt = require('big-integer');
 require('dotenv').config();
 
 // application-only authentication
