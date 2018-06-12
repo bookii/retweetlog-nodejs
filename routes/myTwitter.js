@@ -29,12 +29,12 @@ const login = (req) => {
 }
 
 const oembed = (retweetedStatus, showCards) => {
-    const lang = retweetedStatus['lang'];
-    const text = retweetedStatus['text'];
-    const name = retweetedStatus['user']['name'];
+    const lang       = retweetedStatus['lang'];
+    const text       = retweetedStatus['text'];
+    const name       = retweetedStatus['user']['name'];
     const screenName = retweetedStatus['user']['screen_name'];
-    const idStr = retweetedStatus['id_str'];
-    const createdAt = retweetedStatus['created_at'];
+    const idStr      = retweetedStatus['id_str'];
+    const createdAt  = retweetedStatus['created_at'];
 
     let cardStatus = '';
     if (!showCards) {
