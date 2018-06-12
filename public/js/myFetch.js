@@ -25,15 +25,18 @@ const myCreateElement = (elementType, attributes) => {
 
 const createReadMore = (screenName, maxId, csrfToken, includeSelf) => {
     let f = myCreateElement('form', {method:'post', id: 'readMore'});
-    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'screenName', value: screenName}))
-    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'maxId', value: maxId}));
-    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'untilDate', value: null}));
-    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'reset', value: false}));
-    f.appendChild(myCreateElement('input', {type: 'hidden', name: 'includeSelf', value: includeSelf}));
-    f.appendChild(myCreateElement('input', {type: 'hidden', name: '_csrf', value: csrfToken}));
+
+    f.appendChild(myCreateElement('input', { type: 'hidden', name: 'screenName',  value: screenName  }));
+    f.appendChild(myCreateElement('input', { type: 'hidden', name: 'maxId',       value: maxId       }));
+    f.appendChild(myCreateElement('input', { type: 'hidden', name: 'untilDate',   value: null        }));
+    f.appendChild(myCreateElement('input', { type: 'hidden', name: 'reset',       value: false       }));
+    f.appendChild(myCreateElement('input', { type: 'hidden', name: 'includeSelf', value: includeSelf }));
+    f.appendChild(myCreateElement('input', { type: 'hidden', name: '_csrf',       value: csrfToken   }));
+
     const readMoreButton = myCreateElement('button', {class: "button is-info", type: 'submit'});
     readMoreButton.appendChild(document.createTextNode('続きを読む'));
     f.appendChild(readMoreButton);
+
     return f;
 };
 
@@ -46,13 +49,15 @@ const removeHero = () => {  // remove hero if exists
 
 const loadRetweets = (form) => {
     form.getElementsByTagName('button')[0].classList.add('is-loading');     // add loading animation
-    const screenName = form.elements['screenName'].value;
-    const maxId = form.elements['maxId'].value;
-    const untilDate = form.elements['untilDate'].value;
-    const includeSelf = (form.elements['includeSelf'].value == 'true');      // string to boolean
-    const csrfToken = form.elements['_csrf'].value;
-    const reset = (form.elements['reset'].value == 'true');
-    const showCards = (form.elements['showCards'].value == 'true');
+
+    const screenName  = form.elements['screenName'].value;
+    const maxId       = form.elements['maxId'].value;
+    const untilDate   = form.elements['untilDate'].value;
+    const includeSelf = form.elements['includeSelf'].value == 'true';      // string to boolean
+    const csrfToken   = form.elements['_csrf'].value;
+    const reset       = form.elements['reset'].value == 'true';
+    const showCards   = form.elements['showCards'].value == 'true';
+
     fetch('/', {
         method: 'POST',
         credentials: 'same-origin',  // <-- includes cookies in the request (ref: https://github.com/expressjs/csurf)
