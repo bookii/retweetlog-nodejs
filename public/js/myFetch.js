@@ -11,6 +11,7 @@ const checkStatus = (response) => {
 const getScript = (src) => {
     let s = document.createElement('script');
     s.type = 'text/javascript';
+    s.async = true;
     s.src = src;
     document.getElementsByTagName('body')[0].appendChild(s);
 };
