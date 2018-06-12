@@ -52,6 +52,7 @@ const loadRetweets = (form) => {
     const includeSelf = (form.elements['includeSelf'].value == 'true');      // string to boolean
     const csrfToken = form.elements['_csrf'].value;
     const reset = (form.elements['reset'].value == 'true');
+    const showCards = (form.elements['showCards'].value == 'true');
     fetch('/', {
         method: 'POST',
         credentials: 'same-origin',  // <-- includes cookies in the request (ref: https://github.com/expressjs/csurf)
@@ -63,7 +64,8 @@ const loadRetweets = (form) => {
             screenName: screenName,
             maxId: maxId,   // int or NaN
             includeSelf: includeSelf,
-            untilDate: untilDate
+            untilDate: untilDate,
+            showCards: showCards
         })
     }).then((response) => {
         checkStatus(response);
