@@ -24,7 +24,7 @@ const createElementWithAttr = (elementType, attributes) => {
     return element;
 }
 
-const createReadMore = (screenName, maxId, csrfToken, includeSelf) => {
+const createReadMore = (screenName, maxId, csrfToken, includeSelf, showCards) => {
     let f = createElementWithAttr('form', {method:'post', id: 'readMore'});
 
     f.appendChild(createElementWithAttr('input', { type: 'hidden', name: 'screenName',  value: screenName  }));
@@ -33,6 +33,7 @@ const createReadMore = (screenName, maxId, csrfToken, includeSelf) => {
     f.appendChild(createElementWithAttr('input', { type: 'hidden', name: 'reset',       value: false       }));
     f.appendChild(createElementWithAttr('input', { type: 'hidden', name: 'includeSelf', value: includeSelf }));
     f.appendChild(createElementWithAttr('input', { type: 'hidden', name: '_csrf',       value: csrfToken   }));
+    f.appendChild(createElementWithAttr('input', { type: 'hidden', name: 'showCards',   value: showCards   }));
 
     const readMoreButton = createElementWithAttr('button', {class: "button is-info", type: 'submit'});
     readMoreButton.appendChild(document.createTextNode('続きを読む'));
