@@ -97,7 +97,7 @@ const loadRetweets = (form) => {
             readMoreNode.parentNode.removeChild(readMoreNode);
         }
         if (maxId) {  // add button
-            form = createReadMore(screenName, maxId, csrfToken, includeSelf);
+            form = createReadMore(screenName, maxId, csrfToken, includeSelf, showCards);
             document.getElementsByClassName('contents')[0].appendChild(form);
             document.getElementById('readMore').addEventListener("submit", (event) => {
                 event.preventDefault();
