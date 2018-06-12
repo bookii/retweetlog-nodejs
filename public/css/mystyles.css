@@ -26,6 +26,14 @@ form {
     margin: 5px 0 15px 0;
 }
 
+input[type="date"] {
+    margin-top: 2px;
+}
+
+.radio {
+    margin-bottom: 6px;
+}
+
 input[type="radio"] {
     margin-right: 3px;
 }
@@ -50,7 +58,7 @@ input[type="radio"] {
 }
 
 #detail .control {
-    margin: 2px 0;
+    margin: 0px 0;
 }
 
 li {

@@ -28,14 +28,20 @@ const login = (req) => {
     return false;
 }
 
-const oembed = (retweetedStatus) => {
+const oembed = (retweetedStatus, showCards) => {
     const lang = retweetedStatus['lang'];
     const text = retweetedStatus['text'];
     const name = retweetedStatus['user']['name'];
     const screenName = retweetedStatus['user']['screen_name'];
     const idStr = retweetedStatus['id_str'];
     const createdAt = retweetedStatus['created_at'];
-    const html = `<blockquote class="twitter-tweet" data-lang="ja"><p lang="${lang}" dir="ltr">${text}</p>&mdash; ${name} (@${screenName}) <a href="https://twitter.com/${screenName}/status/${idStr}">${createdAt}</a></blockquote>`
+
+    let cardStatus = '';
+    if (!showCards) {
+        cardStatus = 'data-cards="hidden"';
+    }
+
+    const html = `<blockquote class="twitter-tweet" data-lang="ja" ${cardStatus}><p lang="${lang}" dir="ltr">${text}</p>&mdash; ${name} (@${screenName}) <a href="https://twitter.com/${screenName}/status/${idStr}">${createdAt}</a></blockquote>`
     return html;
 };
 
@@ -161,7 +167,7 @@ exports.indexWithScreenName = async (req, res) => {
     try {
         if (await getUser(req.body.screenName)) {
             params = await getRetweets(req.body.screenName, req.body.maxId, req.body.untilDate, req.body.includeSelf);
-            params['items'] = params['items'].map(tweet => oembed(tweet));
+            params['items'] = params['items'].map(tweet => oembed(tweet, req.body.showCards));
         }
     } catch (error) {
         params = error;
