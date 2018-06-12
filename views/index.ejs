@@ -39,6 +39,19 @@
           </div>
           <div class="option">
             <p class="control">
+              画像/動画の表示:
+            </p>
+            <p class="control">
+              <label class="radio">
+                <input type="radio" name="showCards" value="true" checked>する
+              </label>
+              <label class="radio">
+                <input type="radio" name="showCards" value="false">しない
+              </label>
+            </p> 
+          </div>
+          <div class="option">
+            <p class="control">
               ユーザー本人のツイート:
             </p>
             <p class="control">
@@ -50,19 +63,6 @@
               </label>
             </p> 
           </div>
-          <div class="option">
-          <p class="control">
-            画像/動画の表示:
-          </p>
-          <p class="control">
-            <label class="radio">
-              <input type="radio" name="showCards" value="true" checked>する
-            </label>
-            <label class="radio">
-              <input type="radio" name="showCards" value="false">しない
-            </label>
-          </p> 
-        </div>
         </div>
       </form>
       <% include partial/hero %>
