@@ -86,8 +86,9 @@ footer {
     padding: 10px
 }
 
-.hero ul {
-    margin-bottom: 10px;
+#share-button {
+    margin-top: 10px;
+    margin-bottom: -2px;
 }
 
 footer p {
