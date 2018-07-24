@@ -1,6 +1,6 @@
 # [RTだけ表示するやつ](https://retweetlog.herokuapp.com)
 
-![toppage](images/toppage.png)
+![toppage](https://i.imgur.com/fZcOWdH.png)
 
 ## About
 
